@@ -1,26 +1,29 @@
 [project]
 name = "spotify-nano-challenge-tic-ia"
 version = "0.1.0"
-description = "Add your description here"
+description = "HitPredictor & A&R Analytics - Spotify Nano Challenge TIC IA"
 readme = "README.md"
 authors = [
+    { name = "Ingrid Soares", email = "ingr.dcg@gmail.com" },
     { name = "Yan Santos", email = "yansantosrodrigues.dev@gmail.com" }
 ]
-requires-python = ">=3.14"
+requires-python = ">=3.10"
 dependencies = [
-    "fastapi>=0.141.1",
-    "joblib>=1.6.0",
-    "librosa>=1.0.0",
-    "numpy>=2.5.2",
-    "pandas>=3.0.5",
-    "python-multipart>=0.0.32",
-    "soundfile>=0.14.0",
-    "uvicorn>=0.52.4",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.20.0",
+    "librosa>=0.10.0",
+    "numpy>=1.20.0",
+    "pandas>=1.5.0",
+    "scipy>=1.9.0",
+    "joblib>=1.2.0",
+    "soundfile>=0.12.0",
+    "python-multipart>=0.0.6",
+    "pydantic>=2.0.0",
 ]
 
 [project.scripts]
 spotify-nano-challenge-tic-ia = "spotify_nano_challenge_tic_ia:main"
 
 [build-system]
-requires = ["uv_build>=0.12.5,<0.13.0"]
-build-backend = "uv_build"
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
