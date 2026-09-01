@@ -1,0 +1,111 @@
+{
+  "danceability": {
+    "abaixo": [
+      "O flow caminha como miragem lenta no horizonte: a faixa tem um balanço bem mais estático e contemplativo que as dunas agitadas do gênero.",
+      "A vibe desacelerou e a areia assentou: a pulsação rítmica é consideravelmente mais contida e hipnótica que o padrão usual da cena.",
+      "Cadência de caminhada solitária sob sol a pino: o balanço rítmico opera em rotações bem mais brandas que a média do gênero.",
+      "Menos dança, mais transe desértico: a faixa se posiciona com uma dinâmica rítmica menos pulsante que a maioria das produções do estilo.",
+      "Balanço suave como brisa seca: a pegada rítmica está abaixo da média dançante esperada para o gênero."
+    ],
+    "ideal": [
+      "O ritmo encontrou o curso d'água perfeito: o balanço rítmico reflete com extrema fidelidade o pulso característico do gênero.",
+      "Flow no compasso exato das dunas: a cadência e o gingado dialogam de igual para igual com as principais referências da cena.",
+      "A pulsação é milimétrica: a faixa espelha com precisão a densidade de balanço esperada para o estilo.",
+      "Groove alinhado como oásis no deserto: o magnetismo rítmico está no centro geométrico do que define o gênero.",
+      "Passada firme na areia: a resposta de movimento da faixa opera exatamente na mesma frequência dos sucessos da cena."
+    ],
+    "acima": [
+      "Tempestade de areia na pista: a faixa carrega um balanço rítmico consideravelmente mais elétrico e agressivo que a média do gênero.",
+      "O flow ultrapassou a calmaria e virou pura combustão: a pulsação é marcadamente mais dançante que as faixas habituais da cena.",
+      "Vibe incendiária sobre as dunas: a resposta rítmica está posicionada bem acima do padrão médio de balanço do estilo.",
+      "Passo acelerado na imensidão: a cadência da música entrega uma urgência de movimento mais forte que a média das produções.",
+      "Groove fervendo acima de 40°C: o dinamismo e o apelo de pista da faixa superam amplamente o padrão do gênero."
+    ]
+  },
+  "energy": {
+    "abaixo": [
+      "Pressão suave de brisa noturna no deserto: a densidade sonora da faixa é mais arejada e contida que a média encorpada do gênero.",
+      "Calor suave nas cinzas: a faixa se apresenta com um peso sonoro e impacto dinâmico mais comedidos que a média do estilo.",
+      "Vibe intimista sob céu estrelado: a energia geral está situada abaixo da massa sonora que tipicamente preenche o gênero.",
+      "Flow em marcha suave: a faixa preserva uma dinâmica aberta e mais calma em comparação com o paredão sonoro do estilo.",
+      "Densidade serena na imensidão: o impacto físico e a intensidade da faixa estão abaixo do padrão habitual das produções."
+    ],
+    "ideal": [
+      "Pressão de meio-dia no Saara: a densidade sonora e o peso da faixa estão no mesmo patamar das principais produções do estilo.",
+      "Impacto na medida exata: a faixa carrega a mesma força, corpo e intensidade esperadas para o padrão sonoro do gênero.",
+      "Vibe encorpada e imponente: o peso dos graves e médios atinge exatamente o nível de pressão que define o estilo.",
+      "Flow que corta as dunas: a faixa apresenta a densidade sonora clássica do gênero, sem soar frágil nem hiper-saturada.",
+      "Equilíbrio acústico blindado: a intensidade e a energia espelham com exatidão a assinatura de potência do gênero."
+    ],
+    "acima": [
+      "Calor escaldante de deserto aberto: a faixa atinge uma pressão e intensidade sonora bem superiores à média do gênero.",
+      "Vibe vulcânica: a densidade sonora é monumental, entregando uma sensação de força que ultrapassa os lançamentos habituais.",
+      "Flow implacável de avalanche: o peso da produção se posiciona com uma carga energética mais extrema que o padrão da cena.",
+      "Sol a pino sem trégua: a faixa opera em um nível de agressividade e pressão que vai além da média do estilo.",
+      "Energia no topo da escala: a massa sonora é mais densa e compacta que a grande maioria das produções de referência."
+    ]
+  },
+  "valence": {
+    "abaixo": [
+      "Noite fria e escura no deserto: a atmosfera emocional da faixa é notavelmente mais densa, introspectiva e melancólica que o gênero.",
+      "Vibe soturna e nebulosa: a harmonia se posiciona em um tom emocional mais sombrio que a média dos lançamentos do estilo.",
+      "Flow solitário sob as estrelas: a assinatura melódica carrega uma carga dramática bem mais severa que o padrão da cena.",
+      "Caminhada nas sombras das dunas: o clima geral é marcadamente austero e reflexivo, abaixo da luminosidade média do gênero.",
+      "Horizonte fechado: a faixa expressa uma aura emocional mais pesada e misteriosa que o perfil habitual do estilo."
+    ],
+    "ideal": [
+      "Oásis ao pôr do sol: a atmosfera emocional transmite exatamente o equilíbrio de humor e tom esperado para o estilo.",
+      "Vibe em perfeita ressonância: o clima harmônico conversa de forma idêntica com o padrão emocional característico do gênero.",
+      "Flow que equilibra luz e sombra: a positividade e a sensação da música estão no centro exato da assinatura do gênero.",
+      "Clima de fim de tarde nas dunas: a sensação transmitida espelha a mesma identidade emocional das referências do estilo.",
+      "Harmonia alinhada ao horizonte: o humor sonoro se encaixa com fidelidade no padrão de sentimentos do gênero."
+    ],
+    "acima": [
+      "Sol a pino rasgando o céu: a faixa carrega um clima eufórico e solar muito superior à média sóbria do gênero.",
+      "Vibe puramente radiante: a atmosfera harmônica transborda um otimismo e luminosidade bem acima das faixas da cena.",
+      "Flow festivo na imensidão: a sensação geral da faixa é consideravelmente mais aberta e vibrante que o padrão do estilo.",
+      "Explosão de cores sobre a areia: o clima melódico apresenta uma vibração positiva mais acentuada que o habitual do gênero.",
+      "Luminosidade no topo: a sensação emocional é marcadamente mais eufórica que a média das produções de referência."
+    ]
+  },
+  "tempo": {
+    "abaixo": [
+      "Passo compassado pelas areias: o andamento (BPM) da faixa é consideravelmente mais lento que a média do gênero.",
+      "Flow em marcha cadenciada: a velocidade da música se posiciona abaixo do andamento típico das referências do estilo.",
+      "Vibe de travessia noturna: a pulsação do metrônomo caminha com um andamento mais arrastado que o padrão da cena.",
+      "Velocidade contida no calor: o BPM da produção opera em uma faixa de rotação mais baixa que a média do gênero."
+    ],
+    "ideal": [
+      "Velocidade de cruzeiro pelas dunas: o BPM coincide com a velocidade exata onde operam os lançamentos do estilo.",
+      "Flow no compasso milimétrico: o andamento da faixa está perfeitamente alinhado à cadência padrão da cena.",
+      "Vibe rítmica no ponto de equilíbrio: a pulsação do metrônomo reflete a média de velocidade do gênero.",
+      "Passo sincronizado no horizonte: a velocidade da música se encaixa no andamento típico das referências."
+    ],
+    "acima": [
+      "Corrida rápida contra o vento: o BPM da faixa é mais acelerado e urgente que a velocidade média do gênero.",
+      "Flow em disparada: o andamento imprime uma velocidade de rotação que ultrapassa o padrão usual da cena.",
+      "Vibe acelerada que corta o ar: a faixa corre com um andamento mais rápido do que a grande maioria do estilo.",
+      "Passo acelerado nas dunas: o metrônomo bate em uma faixa de velocidade acima da média comercial do gênero."
+    ]
+  },
+  "loudness": {
+    "abaixo": [
+      "Volume tímido na imensidão: o ganho integrado (dB) da faixa está abaixo da média comercial praticada no gênero.",
+      "Sinal recuado: o volume da master se posiciona em um patamar mais baixo que o padrão de presença do estilo.",
+      "Vibe distante no horizonte: a faixa apresenta um volume final menos presente que as referências do gênero.",
+      "Presença sonora recuada: a intensidade em decibéis está posicionada abaixo do nível médio do estilo."
+    ],
+    "ideal": [
+      "Presença sonora no ponto: o volume integrado (dB) se equipara à média de ganho dos lançamentos do gênero.",
+      "Pressão sonora alinhada: a faixa possui o mesmo patamar de volume e presença das produções comerciais do estilo.",
+      "Vibe encorpada no centro do alvo: o ganho geral da master reflete com fidelidade o padrão do gênero.",
+      "Masterização no nível da cena: o loudness final opera na mesma faixa de volume das referências."
+    ],
+    "acima": [
+      "Volume no limite da areia: o sinal integrado (dB) da faixa é mais alto e quente que a média do estilo.",
+      "Paredão sonoro intenso: a masterização atinge um patamar de volume mais agressivo que o padrão do gênero.",
+      "Presença acima do teto médio: a faixa apresenta um ganho geral mais elevado que a maioria das produções da cena.",
+      "Sinal com pressão máxima: o volume integrado está posicionado acima da média de ganho do gênero."
+    ]
+  }
+}

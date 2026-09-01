@@ -1,4 +1,27 @@
+import json
+import random
+from pathlib import Path
+
 import numpy as np
+
+# Raiz do projeto: app/ -> spotify_nano_challenge_tic_ia/ -> src/ -> ROOT
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+MESSAGES_PATH = PROJECT_ROOT / "data" / "feedback_messages.json"
+
+
+def carregar_mensagens_feedback() -> dict:
+    """Carrega o banco de dados de mensagens do arquivo JSON em data/."""
+    if not MESSAGES_PATH.exists():
+        raise FileNotFoundError(
+            f"Arquivo de mensagens não encontrado em: {MESSAGES_PATH.resolve()}.\n"
+            f"Certifique-se de salvar o arquivo 'feedback_messages.json' dentro da pasta 'data/'."
+        )
+    with open(MESSAGES_PATH, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+# Carrega as mensagens em memória
+MESSAGES_DB = carregar_mensagens_feedback()
 
 PESOS = {
     "danceability": 1.25,
@@ -22,7 +45,7 @@ def processar_alinhamento(metricas: dict, benchmarks: dict, genero_alvo: str) ->
         ref_std = benchmarks["global_std"]
         genre_display = f"{genero_alvo} (Benchmark Geral)"
 
-    # Cálculo da distância ponderada em Z-Score
+    # Distância ponderada multivariada em Z-Score
     diff_quadrada = []
     for col, w in PESOS.items():
         media = ref_mean[col]
@@ -35,78 +58,82 @@ def processar_alinhamento(metricas: dict, benchmarks: dict, genero_alvo: str) ->
         np.clip(100.0 * np.exp(-0.35 * distancia_ponderada), 5.0, 99.0)
     )
 
-    # Feedbacks de estúdio estruturados
     feedbacks = []
 
-    # Ritmo
+    # 1. Ritmo / Dançabilidade
     if metricas["danceability"] < ref_mean["danceability"] - 0.10:
-        feedbacks.append(
-            {
-                "dimensao": "Ritmo",
-                "status": "Abaixo",
-                "mensagem": "Sua música é menos dançante que a média do gênero. Destaque mais o pulso rítmico e linha de baixo.",
-            }
-        )
+        status_r = "Abaixo da Média"
+        msg_r = random.choice(MESSAGES_DB["danceability"]["abaixo"])
     elif metricas["danceability"] > ref_mean["danceability"] + 0.10:
-        feedbacks.append(
-            {
-                "dimensao": "Ritmo",
-                "status": "Acima",
-                "mensagem": "Sua música tem um balanço rítmico mais forte que o padrão usual do estilo.",
-            }
-        )
+        status_r = "Acima da Média"
+        msg_r = random.choice(MESSAGES_DB["danceability"]["acima"])
     else:
-        feedbacks.append(
-            {
-                "dimensao": "Ritmo",
-                "status": "Ideal",
-                "mensagem": "O balanço rítmico está perfeitamente alinhado ao gênero.",
-            }
-        )
+        status_r = "Alinhado ao Gênero"
+        msg_r = random.choice(MESSAGES_DB["danceability"]["ideal"])
 
-    # Intensidade / Energia
+    feedbacks.append(
+        {"dimensao": "Ritmo & Flow", "status": status_r, "mensagem": msg_r}
+    )
+
+    # 2. Intensidade / Energia
     if metricas["energy"] < ref_mean["energy"] - 0.10:
-        feedbacks.append(
-            {
-                "dimensao": "Intensidade e Pressão",
-                "status": "Abaixo",
-                "mensagem": "A música soa mais calma ou com menos peso do que o padrão. Considere mais compressão e saturação.",
-            }
-        )
+        status_e = "Abaixo da Média"
+        msg_e = random.choice(MESSAGES_DB["energy"]["abaixo"])
+    elif metricas["energy"] > ref_mean["energy"] + 0.10:
+        status_e = "Acima da Média"
+        msg_e = random.choice(MESSAGES_DB["energy"]["acima"])
     else:
-        feedbacks.append(
-            {
-                "dimensao": "Intensidade e Pressão",
-                "status": "Ideal",
-                "mensagem": "A força e o peso da música estão bem alinhados ao gênero.",
-            }
-        )
+        status_e = "Alinhado ao Gênero"
+        msg_e = random.choice(MESSAGES_DB["energy"]["ideal"])
 
-    # Clima / Valência
+    feedbacks.append(
+        {"dimensao": "Energia & Calor", "status": status_e, "mensagem": msg_e}
+    )
+
+    # 3. Clima / Valência
     if metricas["valence"] > ref_mean["valence"] + 0.15:
-        feedbacks.append(
-            {
-                "dimensao": "Clima e Tom",
-                "status": "Mais Positivo",
-                "mensagem": "A faixa passa uma sensação mais alegre e vibrante que a média do gênero.",
-            }
-        )
+        status_v = "Mais Solar que a Média"
+        msg_v = random.choice(MESSAGES_DB["valence"]["acima"])
     elif metricas["valence"] < ref_mean["valence"] - 0.15:
-        feedbacks.append(
-            {
-                "dimensao": "Clima e Tom",
-                "status": "Mais Sombrio",
-                "mensagem": "A faixa tem um tom mais melancólico ou sombrio que o padrão do gênero.",
-            }
-        )
+        status_v = "Mais Sombrio que a Média"
+        msg_v = random.choice(MESSAGES_DB["valence"]["abaixo"])
     else:
-        feedbacks.append(
-            {
-                "dimensao": "Clima e Tom",
-                "status": "Ideal",
-                "mensagem": "A positividade e atmosfera da música estão dentro do esperado para o estilo.",
-            }
-        )
+        status_v = "Alinhado ao Gênero"
+        msg_v = random.choice(MESSAGES_DB["valence"]["ideal"])
+
+    feedbacks.append(
+        {"dimensao": "Vibe & Atmosfera", "status": status_v, "mensagem": msg_v}
+    )
+
+    # 4. Andamento / BPM
+    if metricas["tempo"] < ref_mean["tempo"] - 12.0:
+        status_t = "Mais Lento que a Média"
+        msg_t = random.choice(MESSAGES_DB["tempo"]["abaixo"])
+    elif metricas["tempo"] > ref_mean["tempo"] + 12.0:
+        status_t = "Mais Rápido que a Média"
+        msg_t = random.choice(MESSAGES_DB["tempo"]["acima"])
+    else:
+        status_t = "Alinhado ao Gênero"
+        msg_t = random.choice(MESSAGES_DB["tempo"]["ideal"])
+
+    feedbacks.append(
+        {"dimensao": "Andamento & Marcha", "status": status_t, "mensagem": msg_t}
+    )
+
+    # 5. Volume / Loudness
+    if metricas["loudness"] < ref_mean["loudness"] - 2.5:
+        status_l = "Menos Presente que a Média"
+        msg_l = random.choice(MESSAGES_DB["loudness"]["abaixo"])
+    elif metricas["loudness"] > ref_mean["loudness"] + 2.5:
+        status_l = "Mais Quente que a Média"
+        msg_l = random.choice(MESSAGES_DB["loudness"]["acima"])
+    else:
+        status_l = "Alinhado ao Gênero"
+        msg_l = random.choice(MESSAGES_DB["loudness"]["ideal"])
+
+    feedbacks.append(
+        {"dimensao": "Pressão Sonora (dB)", "status": status_l, "mensagem": msg_l}
+    )
 
     return {
         "genre": genre_display,
