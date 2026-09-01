@@ -148,39 +148,44 @@ curl -X POST "http://localhost:8000/api/analyze" \
     "tempo": 126.50
   },
   "mastering": {
-    "integrated_lufs": -13.8,
-    "true_peak_dbtp": -1.24,
-    "crest_factor_db": 10.5,
-    "lra_db": 5.8,
-    "spotify_gain_change_db": -0.2,
+    "integrated_lufs": -13.6,
+    "true_peak_dbtp": 0.33,
+    "crest_factor_db": 13.3,
+    "lra_db": 7.8,
+    "spotify_gain_change_db": -0.4,
     "band_energies": {
-      "Sub (20-60Hz)": 14.2,
-      "Low (60-250Hz)": 28.5,
-      "Mid (250-2.5kHz)": 35.1,
-      "Presence (2.5-7kHz)": 16.0,
-      "Air (7-20kHz)": 6.2
+      "Sub (20-60Hz)": 26.7,
+      "Low (60-250Hz)": 33.5,
+      "Mid (250-2.5kHz)": 36.7,
+      "Presence (2.5-7kHz)": 2.7,
+      "Air (7-20kHz)": 0.2
     }
   },
   "macro_structure": {
-    "duration_s": 215.4,
-    "time_to_hook_s": 38.2,
-    "dynamic_lift_pct": 34.5
+    "duration_s": 276.0,
+    "time_to_hook_s": 200.7,
+    "dynamic_lift_pct": 190.7
   },
   "feedbacks": [
     {
-      "dimensao": "Ritmo",
-      "status": "Ideal",
+      "dimensao": "Ritmo & Flow",
+      "status": "Alinhado ao Gênero",
       "mensagem": "O balanço rítmico está perfeitamente alinhado ao gênero."
     },
     {
       "dimensao": "Masterização (LUFS)",
       "status": "Calibrado",
-      "mensagem": "Loudness integrado (-13.8 LUFS) perfeitamente alinhado com o alvo de streaming (-14 LUFS)."
+      "mensagem": "Loudness integrado (-13.6 LUFS) perfeitamente alinhado com o alvo de streaming (-14 LUFS)."
+    },
+    {
+      "dimensao": "True Peak (dBTP)",
+      "status": "Alerta de Clipping",
+      "mensagem": "True Peak em 0.33 dBTP. Risco de distorção inter-amostral na conversão lossy do streaming. Recomendado teto <= -1.0 dBTP."
     },
     {
       "dimensao": "Estrutura (Hook)",
-      "status": "Retenção Rápida",
-      "mensagem": "O primeiro refrão surge rapidamente aos 38.2s, favorecendo retenção e menor taxa de skip."
+      "status": "Refrão Tardio",
+      "mensagem": "O primeiro refrão surge aos 200.7s. Considere reduzir a introdução para reter ouvintes antes dos 45s."
     }
   ]
 }
