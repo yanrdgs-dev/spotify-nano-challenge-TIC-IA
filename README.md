@@ -100,23 +100,25 @@ spotify-nano-challenge-TIC-IA/
 ### 1. Pré-requisitos
 * Python 3.10+ (ou [uv](https://docs.astral.sh/uv/))
 
-### 2. Instalação com `uv` (Recomendado)
+### 2. Execução Direta via Ambiente Virtual (`.venv`)
 ```bash
-# Clone o repositório
-git clone https://github.com/yanrdgs-dev/spotify-nano-challenge-TIC-IA.git
-cd spotify-nano-challenge-TIC-IA
-
-# Instale as dependências e inicie o servidor
-uv run uvicorn src.spotify_nano_challenge_tic_ia.app.main:app --reload --port 8000
+# Iniciar o servidor FastAPI com hot-reload diretamente pelo ambiente virtual:
+.venv/bin/uvicorn src.spotify_nano_challenge_tic_ia.app.main:app --reload --port 8000
 ```
 
-### 3. Instalação alternativa com `pip`
+### 3. Ou Ativando o Ambiente Virtual (`source`)
 ```bash
-pip install -e .
+# Ativar o ambiente virtual e rodar
+source .venv/bin/activate
 uvicorn src.spotify_nano_challenge_tic_ia.app.main:app --reload --port 8000
 ```
 
-### 4. Documentação Interativa da API (Swagger UI)
+### 4. Execução com `uv` (Opcional)
+```bash
+uv run uvicorn src.spotify_nano_challenge_tic_ia.app.main:app --reload --port 8000
+```
+
+### 5. Documentação Interativa da API (Swagger UI)
 Acesse no seu navegador: **`http://localhost:8000/docs`**
 
 ---
