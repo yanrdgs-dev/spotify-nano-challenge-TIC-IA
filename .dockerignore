@@ -1,0 +1,9 @@
+.venv
+__pycache__
+*.pyc
+.git
+.gitignore
+.env
+data/dataset.csv
+data/dataset_limpo.csv
+tests
