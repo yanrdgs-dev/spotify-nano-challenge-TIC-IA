@@ -51,6 +51,7 @@ def processar_alinhamento(
     genero_alvo: str,
     mastering: dict | None = None,
     macro_structure: dict | None = None,
+    spectral_eq: dict | None = None,
 ) -> dict:
     genero_key = genero_alvo.lower().strip()
 
@@ -212,6 +213,33 @@ def processar_alinhamento(
                 }
             )
 
+    # Feedbacks de Espectro & Match EQ
+    if spectral_eq:
+        if spectral_eq.get("mudness_detected"):
+            feedbacks.append(
+                {
+                    "dimensao": "Espectro (Médios-Graves)",
+                    "status": "Embolamento Detectado",
+                    "mensagem": "Acúmulo excessivo entre 200 Hz e 500 Hz. Recomenda-se atenuar ~2 a 3 dB nessa região para abrir espaço para os vocais e o bumbo.",
+                }
+            )
+        if spectral_eq.get("harshness_detected"):
+            feedbacks.append(
+                {
+                    "dimensao": "Espectro (Médios-Altos)",
+                    "status": "Aspereza / Harshness",
+                    "mensagem": "Picos ressonantes elevados na faixa de 3 kHz a 6 kHz. Considere um de-esser ou EQ dinâmico suave para evitar fadiga auditiva.",
+                }
+            )
+        if spectral_eq.get("air_boost_recommended"):
+            feedbacks.append(
+                {
+                    "dimensao": "Espectro (Agudos & Ar)",
+                    "status": "Falta de Ar",
+                    "mensagem": "Abertura em frequências ultra-altas (> 10 kHz) abaixo da média dos hits. Um boost sutil (High Shelf) trará mais brilho e dimensionalidade.",
+                }
+            )
+
     response_payload = {
         "genre": genre_display,
         "genre_alignment_score": round(score_alinhamento, 1),
@@ -241,5 +269,7 @@ def processar_alinhamento(
         response_payload["mastering"] = mastering
     if macro_structure is not None:
         response_payload["macro_structure"] = macro_structure
+    if spectral_eq is not None:
+        response_payload["spectral_eq"] = spectral_eq
 
     return response_payload
