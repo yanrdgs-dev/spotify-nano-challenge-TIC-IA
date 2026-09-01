@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .routes.analyze import router as analyze_router
 
+
 # Localização resiliente do artefato de benchmarks
 def _find_artifact_path() -> Path:
     candidates = [
