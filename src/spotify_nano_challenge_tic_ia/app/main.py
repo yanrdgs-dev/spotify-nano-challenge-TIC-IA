@@ -12,7 +12,9 @@ def _find_artifact_path() -> Path:
     candidates = [
         Path.cwd() / "artifacts" / "genre_benchmarks.joblib",
         Path(__file__).resolve().parents[3] / "artifacts" / "genre_benchmarks.joblib",
-        Path(__file__).resolve().parent.parent / "artifacts" / "genre_benchmarks.joblib",
+        Path(__file__).resolve().parent.parent
+        / "artifacts"
+        / "genre_benchmarks.joblib",
         Path("/app/artifacts/genre_benchmarks.joblib"),
     ]
     for p in candidates:
