@@ -67,13 +67,10 @@ spotify-nano-challenge-TIC-IA/
 ├── data/
 │   ├── dataset.csv                   # Base original do Spotify (114.000 faixas)
 │   └── dataset_limpo.csv             # Base sanitizada e deduplicada
-├── docs/                             # Relatórios técnicos, artigos e diagramas
+├── docs/                             # Relatórios técnicos e diagramas
 │   ├── images/                       # Imagens de arquitetura e métricas
 │   ├── relatorio_tecnico_consolidado.md
-│   ├── relatorio_audio_ingrid_felipe.md
-│   ├── relatorio_investigacao_avancada_audio_ingrid.md
-│   ├── modulo_audio.md
-│   └── pesquisa_audio.md
+│   └── relatorio_audio_ingrid.md
 ├── notebooks/
 │   └── HitPredictor_Audio_Analytics_Master.ipynb  # Master Notebook fim a fim (ML, DSP, SHAP, What-If)
 ├── src/
@@ -255,10 +252,8 @@ O projeto conta com o notebook executável fim a fim:
 
 ## 📚 Documentação Técnica e Pesquisa em Áudio
 
-* 📄 **[Relatório Técnico Consolidado](docs/relatorio_tecnico_consolidado.md):** Especificação matemática de DSP, modelagem P90, calibração e explicabilidade.
-* 📄 **[Relatório de Engenharia — Ingrid e Felipe](docs/relatorio_audio_ingrid_felipe.md):** Detalhamento do pipeline de dados, extração de features e guia de execução.
-* 📄 **[Investigação Avançada em Áudio — Ingrid](docs/relatorio_investigacao_avancada_audio_ingrid.md):** Pesquisa de fronteira cobrindo Separação de Stems (**HTDemucs**), Foundation Models (**MERT / CLAP**), Análise Vocal (**CREPE**) e Psicoacústica EBU R128 com código executável.
-* 📄 **[Canvas da Fase Investigate](docs/modulo_audio.md):** Alinhamento CBL, matriz de Guiding Questions e objetivos de negócio vs ML.
+* 📄 **[Relatório Técnico Consolidado](docs/relatorio_tecnico_consolidado.md):** Especificação matemática de DSP, modelagem P90, calibração e explicabilidade XAI.
+* 📄 **[Relatório de Engenharia de Áudio & Psicoacústica — Ingrid Soares](docs/relatorio_audio_ingrid.md):** Documentação detalhada do pipeline de DSP, masterização EBU R128, macroestrutura, espectro visual RTA 29 bandas ISO, Match EQ, diagnóstico de mixagem e guia de execução.
 
 ---
 
