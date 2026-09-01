@@ -4,9 +4,21 @@ from pathlib import Path
 
 import numpy as np
 
-# Raiz do projeto: app/ -> spotify_nano_challenge_tic_ia/ -> src/ -> ROOT
-PROJECT_ROOT = Path(__file__).resolve().parents[3]
-MESSAGES_PATH = PROJECT_ROOT / "data" / "feedback_messages.json"
+# Localização resiliente de feedback_messages.json
+def _find_messages_path() -> Path:
+    candidates = [
+        Path.cwd() / "data" / "feedback_messages.json",
+        Path(__file__).resolve().parents[3] / "data" / "feedback_messages.json",
+        Path(__file__).resolve().parent.parent / "data" / "feedback_messages.json",
+        Path("/app/data/feedback_messages.json"),
+    ]
+    for p in candidates:
+        if p.exists():
+            return p
+    return candidates[0]
+
+
+MESSAGES_PATH = _find_messages_path()
 
 
 def carregar_mensagens_feedback() -> dict:

@@ -7,9 +7,21 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .routes.analyze import router as analyze_router
 
-# Raiz do repositório: app/ -> spotify_nano_challenge_tic_ia/ -> src/ -> ROOT
-PROJECT_ROOT = Path(__file__).resolve().parents[3]
-ARTIFACT_PATH = PROJECT_ROOT / "artifacts" / "genre_benchmarks.joblib"
+# Localização resiliente do artefato de benchmarks
+def _find_artifact_path() -> Path:
+    candidates = [
+        Path.cwd() / "artifacts" / "genre_benchmarks.joblib",
+        Path(__file__).resolve().parents[3] / "artifacts" / "genre_benchmarks.joblib",
+        Path(__file__).resolve().parent.parent / "artifacts" / "genre_benchmarks.joblib",
+        Path("/app/artifacts/genre_benchmarks.joblib"),
+    ]
+    for p in candidates:
+        if p.exists():
+            return p
+    return candidates[0]
+
+
+ARTIFACT_PATH = _find_artifact_path()
 
 
 @asynccontextmanager
