@@ -1,4 +1,30 @@
+# Ambientes virtuais
+.venv/
+venv/
+env/
+ENV/
+
+# Python bytecode & cache
 __pycache__/
+*.py[cod]
+*$py.class
+*.so
 *.pyc
 *.pyo
 *.pyd
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# IDEs e SO
+.vscode/
+.idea/
+.DS_Store
+*.swp
+*~
+
+# Logs & temporarios
+*.log
+.pytest_cache/
+.coverage
+htmlcov/

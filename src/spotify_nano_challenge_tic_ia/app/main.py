@@ -44,8 +44,8 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="Genre Alignment API",
-    description="API para diagnóstico técnico de produção musical baseado em benchmarks de gênero.",
+    title="HitPredictor & A&R Analytics API",
+    description="API de inteligência musical para artistas e produtores: extração DSP, calibração Spotify, masterização EBU R128 e diagnóstico prescritivo de gênero.",
     version="1.0.0",
     lifespan=lifespan,
 )

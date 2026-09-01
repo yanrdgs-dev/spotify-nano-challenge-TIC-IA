@@ -45,7 +45,13 @@ PESOS = {
 }
 
 
-def processar_alinhamento(metricas: dict, benchmarks: dict, genero_alvo: str) -> dict:
+def processar_alinhamento(
+    metricas: dict,
+    benchmarks: dict,
+    genero_alvo: str,
+    mastering: dict | None = None,
+    macro_structure: dict | None = None,
+) -> dict:
     genero_key = genero_alvo.lower().strip()
 
     if genero_key in benchmarks["genres"]:
@@ -147,7 +153,66 @@ def processar_alinhamento(metricas: dict, benchmarks: dict, genero_alvo: str) ->
         {"dimensao": "Pressão Sonora (dB)", "status": status_l, "mensagem": msg_l}
     )
 
-    return {
+    # Feedbacks de Masterização (EBU R128)
+    if mastering:
+        lufs = mastering.get("integrated_lufs", -14.0)
+        gain_ch = mastering.get("spotify_gain_change_db", 0.0)
+        if lufs > -13.0:
+            feedbacks.append(
+                {
+                    "dimensao": "Masterização (LUFS)",
+                    "status": "Volume Elevado",
+                    "mensagem": f"Faixa a {lufs:.1f} LUFS. Está {abs(gain_ch):.1f} dB acima do padrão Spotify (-14 LUFS) e sofrerá atenuação algorítmica.",
+                }
+            )
+        elif lufs < -15.5:
+            feedbacks.append(
+                {
+                    "dimensao": "Masterização (LUFS)",
+                    "status": "Volume Baixo",
+                    "mensagem": f"Faixa a {lufs:.1f} LUFS. O Spotify aplicará limiter/ganho positivo para atingir -14 LUFS.",
+                }
+            )
+        else:
+            feedbacks.append(
+                {
+                    "dimensao": "Masterização (LUFS)",
+                    "status": "Calibrado",
+                    "mensagem": f"Loudness integrado ({lufs:.1f} LUFS) perfeitamente alinhado com o alvo de streaming (-14 LUFS).",
+                }
+            )
+
+        tp = mastering.get("true_peak_dbtp", -1.0)
+        if tp > -1.0:
+            feedbacks.append(
+                {
+                    "dimensao": "True Peak (dBTP)",
+                    "status": "Alerta de Clipping",
+                    "mensagem": f"True Peak em {tp:.2f} dBTP. Risco de distorção inter-amostral na conversão lossy do streaming. Recomendado teto <= -1.0 dBTP.",
+                }
+            )
+
+    # Feedbacks de Macroestrutura e Hook
+    if macro_structure:
+        hook_t = macro_structure.get("time_to_hook_s", 30.0)
+        if hook_t > 50.0:
+            feedbacks.append(
+                {
+                    "dimensao": "Estrutura (Hook)",
+                    "status": "Refrão Tardio",
+                    "mensagem": f"O primeiro refrão surge aos {hook_t:.1f}s. Considere reduzir a introdução para reter ouvintes antes dos 45s.",
+                }
+            )
+        else:
+            feedbacks.append(
+                {
+                    "dimensao": "Estrutura (Hook)",
+                    "status": "Retenção Rápida",
+                    "mensagem": f"O primeiro refrão surge rapidamente aos {hook_t:.1f}s, favorecendo retenção e menor taxa de skip.",
+                }
+            )
+
+    response_payload = {
         "genre": genre_display,
         "genre_alignment_score": round(score_alinhamento, 1),
         "metrics": metricas,
@@ -171,3 +236,10 @@ def processar_alinhamento(metricas: dict, benchmarks: dict, genero_alvo: str) ->
             ],
         },
     }
+
+    if mastering is not None:
+        response_payload["mastering"] = mastering
+    if macro_structure is not None:
+        response_payload["macro_structure"] = macro_structure
+
+    return response_payload
