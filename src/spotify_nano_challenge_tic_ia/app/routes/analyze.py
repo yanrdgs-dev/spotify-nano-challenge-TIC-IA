@@ -3,7 +3,7 @@ from typing import Any
 from fastapi import APIRouter, File, Form, HTTPException, Request, UploadFile, status
 
 from ..analysis import processar_alinhamento
-from ..audio_dsp import extrair_metricas_bytes
+from ..audio_dsp import extrair_analise_completa_bytes
 from ..schemas import AnalyzeResponse, GenresResponse, HealthResponse
 
 router = APIRouter(prefix="/api", tags=["Análise & Diagnóstico"])
@@ -46,9 +46,10 @@ async def analyze_track(
 ):
     """
     Recebe um arquivo de áudio e um gênero alvo:
-    - Extrai features psicoacústicas e rítmicas com Librosa em memória.
+    - Extrai features psicoacústicas, rítmicas e de masterização (EBU R128) em memória.
+    - Segmenta a macroestrutura e tempo até o primeiro refrão (Hook).
     - Calcula o Z-Score multivariado ponderado contra o perfil do gênero.
-    - Retorna score percentual, métricas físicas e sugestões práticas de estúdio.
+    - Retorna score percentual, métricas físicas, masterização e sugestões práticas de estúdio.
     """
     benchmarks: dict[str, Any] | None = getattr(request.app.state, "benchmarks", None)
     if not benchmarks:
@@ -75,10 +76,16 @@ async def analyze_track(
             )
 
         # 1. Extração DSP em memória (sem salvar arquivo em disco)
-        metricas = extrair_metricas_bytes(file_bytes)
+        metricas, mastering, macro_structure = extrair_analise_completa_bytes(file_bytes)
 
-        # 2. Diagnóstico estatístico
-        resultado = processar_alinhamento(metricas, benchmarks, genre)
+        # 2. Diagnóstico estatístico completo
+        resultado = processar_alinhamento(
+            metricas=metricas,
+            benchmarks=benchmarks,
+            genero_alvo=genre,
+            mastering=mastering,
+            macro_structure=macro_structure,
+        )
         resultado["filename"] = filename
 
         return resultado
