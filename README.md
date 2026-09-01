@@ -147,24 +147,13 @@ curl -X POST "http://localhost:8000/api/analyze" \
     "valence": 0.412,
     "tempo": 126.50
   },
-  "mastering": {
-    "integrated_lufs": -13.6,
-    "true_peak_dbtp": 0.33,
-    "crest_factor_db": 13.3,
-    "lra_db": 7.8,
-    "spotify_gain_change_db": -0.4,
-    "band_energies": {
-      "Sub (20-60Hz)": 26.7,
-      "Low (60-250Hz)": 33.5,
-      "Mid (250-2.5kHz)": 36.7,
-      "Presence (2.5-7kHz)": 2.7,
-      "Air (7-20kHz)": 0.2
-    }
-  },
-  "macro_structure": {
-    "duration_s": 276.0,
-    "time_to_hook_s": 200.7,
-    "dynamic_lift_pct": 190.7
+  "benchmark_means": {
+    "danceability": 0.518,
+    "energy": 0.732,
+    "loudness": -7.12,
+    "acousticness": 0.124,
+    "valence": 0.503,
+    "tempo": 124.80
   },
   "feedbacks": [
     {
@@ -187,7 +176,43 @@ curl -X POST "http://localhost:8000/api/analyze" \
       "status": "Refrão Tardio",
       "mensagem": "O primeiro refrão surge aos 200.7s. Considere reduzir a introdução para reter ouvintes antes dos 45s."
     }
-  ]
+  ],
+  "chart_data": {
+    "labels": [
+      "Ritmo (Dançabilidade)",
+      "Pressão (Energia)",
+      "Clima (Valência)"
+    ],
+    "user_values": [
+      52.3,
+      84.2,
+      41.2
+    ],
+    "genre_values": [
+      51.8,
+      73.2,
+      50.3
+    ]
+  },
+  "mastering": {
+    "integrated_lufs": -13.6,
+    "true_peak_dbtp": 0.33,
+    "crest_factor_db": 13.3,
+    "lra_db": 7.8,
+    "spotify_gain_change_db": -0.4,
+    "band_energies": {
+      "Sub (20-60Hz)": 26.7,
+      "Low (60-250Hz)": 33.5,
+      "Mid (250-2.5kHz)": 36.7,
+      "Presence (2.5-7kHz)": 2.7,
+      "Air (7-20kHz)": 0.2
+    }
+  },
+  "macro_structure": {
+    "duration_s": 276.0,
+    "time_to_hook_s": 200.7,
+    "dynamic_lift_pct": 190.7
+  }
 }
 ```
 
