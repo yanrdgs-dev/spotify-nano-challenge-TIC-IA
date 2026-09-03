@@ -67,13 +67,10 @@ spotify-nano-challenge-TIC-IA/
 ├── data/
 │   ├── dataset.csv                   # Base original do Spotify (114.000 faixas)
 │   └── dataset_limpo.csv             # Base sanitizada e deduplicada
-├── docs/                             # Relatórios técnicos, artigos e diagramas
+├── docs/                             # Relatórios técnicos e diagramas
 │   ├── images/                       # Imagens de arquitetura e métricas
 │   ├── relatorio_tecnico_consolidado.md
-│   ├── relatorio_audio_ingrid_felipe.md
-│   ├── relatorio_investigacao_avancada_audio_ingrid.md
-│   ├── modulo_audio.md
-│   └── pesquisa_audio.md
+│   └── relatorio_audio_ingrid.md
 ├── notebooks/
 │   └── HitPredictor_Audio_Analytics_Master.ipynb  # Master Notebook fim a fim (ML, DSP, SHAP, What-If)
 ├── src/
@@ -100,23 +97,28 @@ spotify-nano-challenge-TIC-IA/
 ### 1. Pré-requisitos
 * Python 3.10+ (ou [uv](https://docs.astral.sh/uv/))
 
-### 2. Instalação com `uv` (Recomendado)
-```bash
-# Clone o repositório
-git clone https://github.com/yanrdgs-dev/spotify-nano-challenge-TIC-IA.git
-cd spotify-nano-challenge-TIC-IA
+### 2. Opções de Execução do Servidor
 
-# Instale as dependências e inicie o servidor
-uv run uvicorn src.spotify_nano_challenge_tic_ia.app.main:app --reload --port 8000
+#### Opção 1: Chamar o executável do `.venv` diretamente (Não tem como errar)
+```bash
+cd /home/ingrid/Ingrid/courses/res-ia/spotify-nano-challenge-TIC-IA
+.venv/bin/uvicorn src.spotify_nano_challenge_tic_ia.app.main:app --reload --port 8000
 ```
 
-### 3. Instalação alternativa com `pip`
+#### Opção 2: Ativar o ambiente virtual antes de rodar o `uvicorn` (`source`)
 ```bash
-pip install -e .
+cd /home/ingrid/Ingrid/courses/res-ia/spotify-nano-challenge-TIC-IA
+source .venv/bin/activate
 uvicorn src.spotify_nano_challenge_tic_ia.app.main:app --reload --port 8000
 ```
 
-### 4. Documentação Interativa da API (Swagger UI)
+#### Opção 3: Execução com `uv` (Opcional)
+```bash
+cd /home/ingrid/Ingrid/courses/res-ia/spotify-nano-challenge-TIC-IA
+uv run uvicorn src.spotify_nano_challenge_tic_ia.app.main:app --reload --port 8000
+```
+
+### 3. Documentação Interativa da API (Swagger UI)
 Acesse no seu navegador: **`http://localhost:8000/docs`**
 
 ---
@@ -212,6 +214,17 @@ curl -X POST "http://localhost:8000/api/analyze" \
     "duration_s": 276.0,
     "time_to_hook_s": 200.7,
     "dynamic_lift_pct": 190.7
+  },
+  "spectral_eq": {
+    "frequencies_hz": [25, 31.5, 40, 50, 63, 80, 100, 125, 160, 200, 250, 315, 400, 500, 630, 800, 1000, 1250, 1600, 2000, 2500, 3150, 4000, 5000, 6300, 8000, 10000, 12500, 16000],
+    "user_spectrum_db": [-18.5, -12.4, -6.2, -1.5, 0.0, -2.4, -3.8, -5.2, -7.1, -9.4, -12.1, -14.5, -16.2, -18.0, -20.1, -22.5, -24.8, -27.2, -29.5, -31.8, -34.2, -36.5, -39.0, -42.1, -45.5, -49.0, -53.2, -58.0, -64.1],
+    "target_curve_db": [-5.8, -5.4, -5.0, -4.5, -3.9, -3.0, -2.0, -2.9, -3.9, -4.8, -5.7, -6.6, -7.6, -8.5, -9.4, -10.4, -11.3, -12.2, -13.2, -14.1, -15.0, -16.0, -16.9, -17.8, -18.8, -19.7, -20.6, -21.6, -22.5],
+    "suggested_eq_gain_db": [6.0, 6.0, 1.2, -3.0, -3.9, -0.6, 1.8, 2.3, 3.2, 4.6, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0],
+    "mudness_detected": false,
+    "harshness_detected": false,
+    "air_boost_recommended": true,
+    "sub_mono_clean": true,
+    "tuning_hz": 440.0
   }
 }
 ```
@@ -239,10 +252,8 @@ O projeto conta com o notebook executável fim a fim:
 
 ## 📚 Documentação Técnica e Pesquisa em Áudio
 
-* 📄 **[Relatório Técnico Consolidado](docs/relatorio_tecnico_consolidado.md):** Especificação matemática de DSP, modelagem P90, calibração e explicabilidade.
-* 📄 **[Relatório de Engenharia — Ingrid e Felipe](docs/relatorio_audio_ingrid_felipe.md):** Detalhamento do pipeline de dados, extração de features e guia de execução.
-* 📄 **[Investigação Avançada em Áudio — Ingrid](docs/relatorio_investigacao_avancada_audio_ingrid.md):** Pesquisa de fronteira cobrindo Separação de Stems (**HTDemucs**), Foundation Models (**MERT / CLAP**), Análise Vocal (**CREPE**) e Psicoacústica EBU R128 com código executável.
-* 📄 **[Canvas da Fase Investigate](docs/modulo_audio.md):** Alinhamento CBL, matriz de Guiding Questions e objetivos de negócio vs ML.
+* 📄 **[Relatório Técnico Consolidado](docs/relatorio_tecnico_consolidado.md):** Especificação matemática de DSP, modelagem P90, calibração e explicabilidade XAI.
+* 📄 **[Relatório de Engenharia de Áudio & Psicoacústica — Ingrid Soares](docs/relatorio_audio_ingrid.md):** Documentação detalhada do pipeline de DSP, masterização EBU R128, macroestrutura, espectro visual RTA 29 bandas ISO, Match EQ, diagnóstico de mixagem e guia de execução.
 
 ---
 

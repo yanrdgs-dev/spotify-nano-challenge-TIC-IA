@@ -76,7 +76,7 @@ async def analyze_track(
             )
 
         # 1. Extração DSP em memória (sem salvar arquivo em disco)
-        metricas, mastering, macro_structure = extrair_analise_completa_bytes(file_bytes)
+        metricas, mastering, macro_structure, spectral_eq = extrair_analise_completa_bytes(file_bytes)
 
         # 2. Diagnóstico estatístico completo
         resultado = processar_alinhamento(
@@ -85,6 +85,7 @@ async def analyze_track(
             genero_alvo=genre,
             mastering=mastering,
             macro_structure=macro_structure,
+            spectral_eq=spectral_eq,
         )
         resultado["filename"] = filename
 
