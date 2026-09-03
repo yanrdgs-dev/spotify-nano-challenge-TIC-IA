@@ -36,4 +36,3 @@ RUN uv pip install --system --no-deps .
 EXPOSE 8000
 
 CMD ["uvicorn", "spotify_nano_challenge_tic_ia.app.main:app", "--host", "0.0.0.0", "--port", "8000"]
-root@vps-vibelab:~/spotify-nano-challenge-TIC-IA# 
