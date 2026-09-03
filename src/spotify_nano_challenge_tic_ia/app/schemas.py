@@ -48,6 +48,10 @@ class AnalyzeResponse(BaseModel):
     )
     metrics: AudioMetrics
     benchmark_means: dict[str, float]
+    benchmark_weights: dict[str, float] | None = Field(
+        default=None,
+        description="Pesos personalizados das features para o gênero calculados via SHAP",
+    )
     feedbacks: list[FeedbackItem]
     chart_data: ChartData
     mastering: MasteringMetrics | None = None

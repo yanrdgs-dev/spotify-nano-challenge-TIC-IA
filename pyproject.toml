@@ -19,6 +19,7 @@ dependencies = [
     "soundfile>=0.12.0",
     "python-multipart>=0.0.6",
     "pydantic>=2.0.0",
+    "shap>=0.49.1",
 ]
 
 [project.scripts]
@@ -27,3 +28,8 @@ spotify-nano-challenge-tic-ia = "spotify_nano_challenge_tic_ia:main"
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
+
+[dependency-groups]
+dev = [
+    "matplotlib>=3.10.9",
+]

@@ -28,3 +28,18 @@ __pycache__/
 .pytest_cache/
 .coverage
 htmlcov/
+.ruff_cache/
+.mypy_cache/
+
+# Empacotamento e Builds
+*.egg-info/
+build/
+dist/
+*.egg
+*.zip
+*.tar.gz
+
+# Variaveis de ambiente
+.env
+.env.*
+!.env.example

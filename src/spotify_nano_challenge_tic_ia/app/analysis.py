@@ -35,7 +35,7 @@ def carregar_mensagens_feedback() -> dict:
 # Carrega as mensagens em memória
 MESSAGES_DB = carregar_mensagens_feedback()
 
-PESOS = {
+DEFAULT_PESOS = {
     "danceability": 1.25,
     "energy": 1.25,
     "loudness": 1.00,
@@ -43,6 +43,8 @@ PESOS = {
     "tempo": 0.80,
     "acousticness": 0.30,
 }
+# Compatibilidade regressiva
+PESOS = DEFAULT_PESOS
 
 
 def processar_alinhamento(
@@ -57,21 +59,28 @@ def processar_alinhamento(
     if genero_key in benchmarks["genres"]:
         ref_mean = benchmarks["genres"][genero_key]["mean"]
         ref_std = benchmarks["genres"][genero_key]["std"]
+        pesos_ativos = benchmarks["genres"][genero_key].get(
+            "weights", benchmarks.get("global_weights", DEFAULT_PESOS)
+        )
         genre_display = genero_alvo
     else:
         ref_mean = benchmarks["global_mean"]
         ref_std = benchmarks["global_std"]
+        pesos_ativos = benchmarks.get("global_weights", DEFAULT_PESOS)
         genre_display = f"{genero_alvo} (Benchmark Geral)"
 
-    # Distância ponderada multivariada em Z-Score
+    # Distância ponderada multivariada em Z-Score usando pesos específicos do gênero
     diff_quadrada = []
-    for col, w in PESOS.items():
+    features_list = benchmarks.get("features", list(pesos_ativos.keys()))
+    for col in features_list:
+        w = pesos_ativos.get(col, 1.0)
         media = ref_mean[col]
         desvio = ref_std[col] if ref_std[col] > 0 else 1.0
         z = (metricas[col] - media) / desvio
         diff_quadrada.append(w * (z**2))
 
-    distancia_ponderada = np.sqrt(np.sum(diff_quadrada) / sum(PESOS.values()))
+    soma_pesos = sum(pesos_ativos.get(col, 1.0) for col in features_list)
+    distancia_ponderada = np.sqrt(np.sum(diff_quadrada) / (soma_pesos if soma_pesos > 0 else 1.0))
     score_alinhamento = float(
         np.clip(100.0 * np.exp(-0.35 * distancia_ponderada), 5.0, 99.0)
     )
@@ -217,6 +226,7 @@ def processar_alinhamento(
         "genre_alignment_score": round(score_alinhamento, 1),
         "metrics": metricas,
         "benchmark_means": {k: round(v, 3) for k, v in ref_mean.items()},
+        "benchmark_weights": {k: round(v, 3) for k, v in pesos_ativos.items()},
         "feedbacks": feedbacks,
         "chart_data": {
             "labels": [
