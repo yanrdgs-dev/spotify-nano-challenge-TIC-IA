@@ -71,6 +71,19 @@ class AnalyzeResponse(BaseModel):
     spectral_eq: SpectralEQCurve | None = None
 
 
+class StartAnalysisResponse(BaseModel):
+    analysisId: str
+    status: str = "processing"
+
+
+class AnalysisProgressResponse(BaseModel):
+    analysisId: str
+    step: str
+    percent: float
+    message: str | None = None
+    error: str | None = None
+
+
 class GenresResponse(BaseModel):
     genres: list[str]
 
@@ -79,3 +92,4 @@ class HealthResponse(BaseModel):
     status: str
     benchmarks_loaded: bool
     genres_count: int
+

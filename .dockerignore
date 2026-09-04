@@ -7,3 +7,5 @@ __pycache__
 data/dataset.csv
 data/dataset_limpo.csv
 tests
+frontend/node_modules
+frontend/dist

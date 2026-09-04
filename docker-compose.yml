@@ -14,7 +14,9 @@ services:
       - app-network
 
   nginx:
-    image: nginx:alpine
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
     container_name: vibelab-nginx
     restart: always
     ports:

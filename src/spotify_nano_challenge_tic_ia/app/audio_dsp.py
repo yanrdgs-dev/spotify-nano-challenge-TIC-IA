@@ -1,4 +1,5 @@
 import io
+from typing import Any, Callable
 
 import librosa
 import numpy as np
@@ -210,11 +211,24 @@ def extrair_espectro_eq(y: np.ndarray, sr: int) -> dict:
     }
 
 
-def extrair_analise_completa_bytes(file_bytes: bytes) -> tuple[dict, dict, dict, dict]:
+def extrair_analise_completa_bytes(
+    file_bytes: bytes,
+    on_progress: Any = None,
+) -> tuple[dict, dict, dict, dict]:
     """Executa a extração DSP básica, masterização EBU R128, macroestrutura e espectro de EQ."""
+    if on_progress:
+        on_progress(15.0, "Carregando sinal de áudio e decodificando...")
+
     audio_stream = io.BytesIO(file_bytes)
     y, sr = librosa.load(audio_stream, sr=22050, mono=True)
+
+    if on_progress:
+        on_progress(35.0, "Separando componentes harmônicos e percussivos (HPSS)...")
+
     y_harmonic, y_percussive = librosa.effects.hpss(y)
+
+    if on_progress:
+        on_progress(50.0, "Detectando andamento (BPM) e pulso rítmico...")
 
     tempo_array, _ = librosa.beat.beat_track(y=y_percussive, sr=sr, start_bpm=120.0)
     tempo = (
@@ -226,6 +240,9 @@ def extrair_analise_completa_bytes(file_bytes: bytes) -> tuple[dict, dict, dict,
         tempo *= 2
     elif tempo > 210:
         tempo /= 2
+
+    if on_progress:
+        on_progress(65.0, "Extraindo dançabilidade, energia e valência psicoacústica...")
 
     rms_array = librosa.feature.rms(y=y)[0]
     mean_rms = float(np.mean(rms_array))
@@ -252,8 +269,15 @@ def extrair_analise_completa_bytes(file_bytes: bytes) -> tuple[dict, dict, dict,
         "tempo": round(tempo, 2),
     }
 
+    if on_progress:
+        on_progress(78.0, "Calculando masterização EBU R128 e True Peak...")
+
     mastering = extrair_psicoacustica_mastering(y, sr)
     macro = extrair_macroestrutura(y, sr)
+
+    if on_progress:
+        on_progress(88.0, "Mapeando balanço espectral e curvas Match EQ...")
+
     spectral_eq = extrair_espectro_eq(y, sr)
 
     return metrics, mastering, macro, spectral_eq

@@ -202,26 +202,6 @@ def processar_alinhamento(
                 }
             )
 
-    # Feedbacks de Macroestrutura e Hook
-    if macro_structure:
-        hook_t = macro_structure.get("time_to_hook_s", 30.0)
-        if hook_t > 50.0:
-            feedbacks.append(
-                {
-                    "dimensao": "Estrutura (Hook)",
-                    "status": "Refrão Tardio",
-                    "mensagem": f"O primeiro refrão surge aos {hook_t:.1f}s. Considere reduzir a introdução para reter ouvintes antes dos 45s.",
-                }
-            )
-        else:
-            feedbacks.append(
-                {
-                    "dimensao": "Estrutura (Hook)",
-                    "status": "Retenção Rápida",
-                    "mensagem": f"O primeiro refrão surge rapidamente aos {hook_t:.1f}s, favorecendo retenção e menor taxa de skip.",
-                }
-            )
-
     # Feedbacks de Espectro & Match EQ
     if spectral_eq:
         if spectral_eq.get("mudness_detected"):
